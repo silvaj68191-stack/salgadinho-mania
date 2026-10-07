@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Salgadinho Mania</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #030303;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           PRIMEIRA PÁGINA
+        ========================= */
+
+        .inicio {
+            min-height: 100vh;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 75% 50%,
+                    rgba(170, 125, 20, 0.35),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(110, 80, 10, 0.18),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    120deg,
+                    #020202 0%,
+                    #0d0b05 45%,
+                    #1c1607 100%
+                );
+        }
+
+        /* BRILHO AMARELO DO FUNDO */
+
+        .inicio::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            right: -150px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            background: #9b7418;
+
+            filter: blur(180px);
+
+            opacity: 0.18;
+
+            pointer-events: none;
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        .conteudo {
+            width: 90%;
+            max-width: 1250px;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 50px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+           TEXTO
+        ========================= */
+
+        .texto {
+            max-width: 560px;
+            flex: 1;
+        }
+
+        .marca {
+            color: #c99a24;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .texto h1 {
+            font-size: clamp(45px, 6vw, 78px);
+
+            line-height: 0.98;
+
+            margin-bottom: 28px;
+
+            font-weight: 800;
+        }
+
+        .texto h1 span {
+            color: #d1a329;
+        }
+
+        .texto p {
+            max-width: 500px;
+
+            color: #a8a8a8;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            margin-bottom: 38px;
+        }
+
+        /* =========================
+           BOTÃO
+        ========================= */
+
+        .botao {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 12px;
+
+            padding: 16px 30px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #705515,
+                #c09521
+            );
+
+            box-shadow:
+                0 10px 35px rgba(190, 145, 25, 0.20);
+
+            transition: all 0.3s ease;
+        }
+
+        .botao:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 15px 45px rgba(210, 165, 40, 0.35);
+        }
+
+        .seta {
+            font-size: 20px;
+
+            transition: 0.3s;
+        }
+
+        .botao:hover .seta {
+            transform: translateX(5px);
+        }
+
+        /* =========================
+           ÁREA DA IMAGEM
+        ========================= */
+
+        .produto-area {
+            width: 600px;
+            height: 600px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        /* BRILHO ATRÁS DA MOLDURA */
+
+        .produto-fundo {
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(200, 155, 35, 0.28),
+                    transparent 68%
+                );
+
+            filter: blur(8px);
+
+            pointer-events: none;
+        }
+
+        /* =========================
+           MOLDURA
+        ========================= */
+
+        .produto {
+            position: relative;
+
+            z-index: 2;
+
+            width: 560px;
+            height: 560px;
+
+            padding: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(8, 8, 8, 0.97),
+                    rgba(65, 48, 12, 0.70)
+                );
+
+            border: 1px solid rgba(210, 165, 45, 0.45);
+
+            box-shadow:
+                0 35px 90px rgba(0, 0, 0, 0.70),
+                inset 0 0 50px rgba(190, 145, 25, 0.10);
+
+            overflow: hidden;
+        }
+
+        /* BORDA INTERNA */
+
+        .produto::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 5px;
+
+            border-radius: 24px;
+
+            border: 1px solid rgba(255, 210, 80, 0.12);
+
+            pointer-events: none;
+
+            z-index: 3;
+        }
+
+        /* =========================
+           LINK DA IMAGEM
+        ========================= */
+
+        .produto a {
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            border-radius: 21px;
+
+            overflow: hidden;
+
+            background: #000;
+        }
+
+        /* =========================
+           CANVA
+        ========================= */
+
+        .produto img {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            border: none;
+
+            margin: 0;
+            padding: 0;
+
+            border-radius: 21px;
+        }
+
+        /* =========================
+           INDICADOR
+        ========================= */
+
+        .indicador {
+            position: absolute;
+
+            bottom: 30px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #817344;
+
+            font-size: 12px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .conteudo {
+                gap: 30px;
+            }
+
+            .produto-area {
+                width: 480px;
+                height: 480px;
+            }
+
+            .produto-fundo {
+                width: 480px;
+                height: 480px;
+            }
+
+            .produto {
+                width: 440px;
+                height: 440px;
+            }
+        }
+
+        /* =========================
+           CELULAR / TABLET
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .inicio {
+                padding: 60px 0 80px;
+            }
+
+            .conteudo {
+                width: 92%;
+
+                min-height: auto;
+
+                flex-direction: column;
+
+                justify-content: center;
+
+                text-align: center;
+
+                gap: 45px;
+            }
+
+            .texto {
+                max-width: 650px;
+
+                flex: none;
+            }
+
+            .texto p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .produto-area {
+                width: 430px;
+                height: 430px;
+
+                max-width: 92vw;
+                max-height: 92vw;
+            }
+
+            .produto-fundo {
+                width: 430px;
+                height: 430px;
+
+                max-width: 92vw;
+                max-height: 92vw;
+            }
+
+            .produto {
+                width: 400px;
+                height: 400px;
+
+                max-width: 88vw;
+                max-height: 88vw;
+
+                padding: 8px;
+
+                border-radius: 25px;
+            }
+
+            .produto a,
+            .produto img {
+                border-radius: 18px;
+            }
+
+            .indicador {
+                display: none;
+            }
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            .inicio {
+                padding: 45px 0 65px;
+            }
+
+            .conteudo {
+                gap: 35px;
+            }
+
+            .marca {
+                font-size: 13px;
+
+                letter-spacing: 3px;
+
+                margin-bottom: 20px;
+            }
+
+            .texto h1 {
+                font-size: 43px;
+
+                line-height: 1;
+            }
+
+            .texto p {
+                font-size: 16px;
+
+                line-height: 1.6;
+
+                margin-bottom: 30px;
+            }
+
+            .botao {
+                padding: 14px 25px;
+            }
+
+            .produto-area {
+                width: 320px;
+                height: 320px;
+
+                max-width: 90vw;
+                max-height: 90vw;
+            }
+
+            .produto-fundo {
+                width: 320px;
+                height: 320px;
+
+                max-width: 90vw;
+                max-height: 90vw;
+            }
+
+            .produto {
+                width: 300px;
+                height: 300px;
+
+                max-width: 86vw;
+                max-height: 86vw;
+
+                padding: 6px;
+
+                border-radius: 20px;
+            }
+
+            .produto a,
+            .produto img {
+                border-radius: 14px;
+            }
+
+            .produto::before {
+                inset: 4px;
+
+                border-radius: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="inicio">
+
+        <div class="conteudo">
+
+            <!-- TEXTO -->
+
+            <section class="texto">
+
+                <div class="marca">
+                    SALGADINHO MANIA
+                </div>
+
+                <h1>
+                    Sabor que<br>
+                    <span>cabe no bolso.</span>
+                </h1>
+
+                <p>
+                    Mini salgadinhos deliciosos e bebidas refrescantes
+                    para deixar seu momento ainda mais gostoso.
+                    Qualidade, sabor e preço acessível em um só lugar.
+                </p>
+
+                <a href="cadastro.html" class="botao">
+                    Abrir site
+                    <span class="seta">→</span>
+                </a>
+
+            </section>
+
+
+            <!-- IMAGEM DO CANVA -->
+
+            <section class="produto-area">
+
+                <div class="produto-fundo"></div>
+
+                <div class="produto">
+
+                    <div>
+
+                        <img
+                        src="https://i.ibb.co/HD3x05fy/Logotipo-de-coxinha-1.jpg" alt="Logo">
+                  
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <div class="indicador"></div>
+
+    </main>
+
+</body>
+</html>

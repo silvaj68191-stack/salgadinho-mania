@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Salgadinho Mania | Mini Salgadinhos</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #030303;
+            color: #fff;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: 100%;
+            padding: 20px 5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(3, 3, 3, 0.97);
+            border-bottom: 1px solid rgba(190, 145, 25, 0.25);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #c99a24;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* =========================
+           MENU
+        ========================= */
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            padding: 8px 0;
+        }
+
+        nav a:hover {
+            color: #d1a329;
+        }
+
+        nav a.produtos-atual {
+            color: #d1a329;
+        }
+
+        /* =========================
+           ÁREA DIREITA
+        ========================= */
+
+        .header-direita {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .botao-pesquisa {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #80651c;
+            border-radius: 8px;
+
+            background: transparent;
+            color: #d0a328;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+        .botao-pesquisa:hover {
+            background: #6d5315;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .botao-pesquisa svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .carrinho {
+            color: #fff;
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border: 1px solid #80651c;
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+        .carrinho:hover {
+            background: #6d5315;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 90px 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(145, 105, 15, 0.25),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    180deg,
+                    #030303,
+                    #0e0c07
+                );
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero small {
+            color: #d0a328;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #c99a24;
+        }
+
+        .hero p {
+            color: #a5a5a5;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* =========================
+           PRODUTOS
+        ========================= */
+
+        .produtos {
+            padding: 90px 7%;
+            background: #050505;
+        }
+
+        .titulo-secao {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .titulo-secao h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .titulo-secao p {
+            color: #858585;
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .produto {
+            background:
+                linear-gradient(
+                    145deg,
+                    #0a0a0a,
+                    #191506
+                );
+
+            border: 1px solid rgba(205, 157, 35, 0.18);
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            transition: 0.3s;
+        }
+
+        .produto:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(210, 163, 42, 0.55);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* =========================
+           IMAGENS DOS PRODUTOS
+        ========================= */
+
+        .imagem-produto {
+            width: 100%;
+            height: 270px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #080808,
+                    #211b09
+                );
+
+            overflow: hidden;
+        }
+
+        .imagem-produto img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition: 0.4s;
+        }
+
+        .produto:hover .imagem-produto img {
+            transform: scale(1.05);
+        }
+
+        /* =========================
+           INFORMAÇÕES
+        ========================= */
+
+        .info {
+            padding: 25px;
+        }
+
+        .categoria {
+            color: #d0a328;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info h3 {
+            font-size: 23px;
+            margin: 10px 0;
+        }
+
+        .descricao {
+            color: #909090;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 68px;
+        }
+
+        .preco {
+            margin: 20px 0;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .preco span {
+            color: #d3a52c;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            padding: 80px 20px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b1608,
+                    #070604
+                );
+        }
+
+        .cta h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #929292;
+            margin-bottom: 30px;
+        }
+
+        .cta a {
+            display: inline-block;
+
+            padding: 15px 35px;
+
+            border-radius: 10px;
+
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+
+            background: #9a751b;
+
+            transition: 0.3s;
+        }
+
+        .cta a:hover {
+            background: #c39a29;
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 35px 7%;
+
+            text-align: center;
+
+            background: #020202;
+
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            header {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            nav {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .header-direita {
+                gap: 7px;
+            }
+
+            .botao-pesquisa {
+                width: 38px;
+                height: 38px;
+            }
+
+            .carrinho {
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 70px 20px;
+            }
+
+            .produtos {
+                padding: 70px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         CABEÇALHO
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            SALGADINHO MANIA
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="vendas.html" class="produtos-atual">
+                Produtos
+            </a>
+
+            <a href="sobre.html">
+                Sobre
+            </a>
+
+        </nav>
+
+        <div class="header-direita">
+
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="7"
+                    ></circle>
+
+                    <line
+                        x1="16.5"
+                        y1="16.5"
+                        x2="22"
+                        y2="22"
+                    ></line>
+
+                </svg>
+
+            </a>
+
+            <a
+                href="pedido.html"
+                class="carrinho"
+            >
+                Comprar
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <small>
+                Mini salgados • Sabor
+            </small>
+
+            <h1>
+                Sabor que<br>
+                <span>cabe no bolso.</span>
+            </h1>
+
+            <p>
+                Mini salgadinhos crocantes e deliciosos, preparados
+                para deixar seu momento ainda mais gostoso.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUTOS
+    ========================= -->
+
+    <section class="produtos">
+
+        <div class="titulo-secao">
+
+            <h2>
+                Nossos produtos
+            </h2>
+
+            <p>
+                Escolha seu favorito e aproveite!
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+<article class="produto">
+
+                <div class="imagem-produto">
+
+                    <img
+                        src="https://i.ibb.co/Y7sJY8Nt/c5b6663f-c8c7-437b-b460-e5851eb0ad6b.png"
+                        alt="Combo Mania"
+                    >
+
+                </div>
+
+                <div class="info">
+
+                    <span class="categoria">
+                        Mais vendido
+                    </span>
+
+                    <h3>
+                        Combo Mania
+                    </h3>
+
+                    <p class="descricao">
+                        7 mini salgadinhos variados, crocantes e saborosos.
+                        A combinação perfeita para matar a fome
+                        e aproveitar um lanche delicioso.
+                    </p>
+
+                    <div class="preco">
+                        <span>
+                            R$ 9,00
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+<article class="produto">
+
+                <div class="imagem-produto">
+
+                    <img
+                        src="https://i.ibb.co/tTn0PL67/65248f14-3e07-4786-94b7-f5b24f25db8d.png"
+                        alt="Mini Salgadinhos"
+                    >
+
+                </div>
+
+                <div class="info">
+
+                    <span class="categoria">
+                        Salgadinho
+                    </span>
+
+                    <h3>
+                        Mini salgadinho (UN)
+                    </h3>
+
+                    <p class="descricao">
+                        Pequenos, crocantes e recheados.
+                        Uma ótima opção para quem ama
+                        um bom salgadinho.
+                    </p>
+
+                    <div class="preco">
+                        <span>
+                            R$ 1,50
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+<article class="produto">
+
+                <div class="imagem-produto">
+
+                    <img
+                        src="https://i.ibb.co/GvXd1mYs/90c29b4f-21ed-486b-97aa-4e1a2f0ab7c9.png"
+                        alt="Kit Amigos"
+                    >
+
+                </div>
+
+                <div class="info">
+
+                    <span class="categoria">
+                        Especial
+                    </span>
+
+                    <h3>
+                        Kit Amigos
+                    </h3>
+
+                    <p class="descricao">
+                        Uma opção maior para compartilhar:
+                        20 mini salgadinhos variados, perfeitos
+                        para dividir com amigos e família.
+                    </p>
+
+                    <div class="preco">
+                        <span>
+                            R$ 35,00
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section class="cta">
+
+        <h2>
+            Bateu a fome?
+        </h2>
+
+        <p>
+            Escolha as quantidades dos seus produtos
+            e aproveite!
+        </p>
+
+        <a href="pedido.html">
+            Comprar agora
+        </a>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SALGADINHO MANIA
+
+    </footer>
+
+</body>
+</html>

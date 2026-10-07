@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Salgadinho Mania | Seu Pedido</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #030303;
+            color: #fff;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: 100%;
+            padding: 20px 5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(3, 3, 3, 0.97);
+            border-bottom: 1px solid rgba(190, 145, 25, 0.25);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #c99a24;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            padding: 8px 0;
+        }
+
+        nav a:hover {
+            color: #d1a329;
+        }
+
+        nav a.atual {
+            color: #d1a329;
+        }
+
+        .header-direita {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .voltar {
+            color: #fff;
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border: 1px solid #80651c;
+            border-radius: 8px;
+
+            transition: 0.3s;
+        }
+
+        .voltar:hover {
+            background: #6d5315;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 380px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(145, 105, 15, 0.25),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    180deg,
+                    #030303,
+                    #0e0c07
+                );
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero small {
+            color: #d0a328;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 68px);
+            line-height: 1;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #c99a24;
+        }
+
+        .hero p {
+            color: #a5a5a5;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           PEDIDO
+        ========================= */
+
+        .pedido {
+            padding: 80px 5%;
+            background: #050505;
+        }
+
+        .titulo-secao {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .titulo-secao h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .titulo-secao p {
+            color: #858585;
+        }
+
+        /* =========================
+           LISTA DE PRODUTOS
+        ========================= */
+
+        .lista-produtos {
+            max-width: 1000px;
+            margin: auto;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+        .produto {
+            display: flex;
+            align-items: center;
+
+            gap: 25px;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0a0a0a,
+                    #191506
+                );
+
+            border: 1px solid rgba(205, 157, 35, 0.18);
+
+            border-radius: 16px;
+
+            transition: 0.3s;
+        }
+
+        .produto:hover {
+            border-color: rgba(210, 163, 42, 0.55);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .produto-imagem {
+            width: 120px;
+            height: 100px;
+
+            flex-shrink: 0;
+
+            overflow: hidden;
+
+            border-radius: 12px;
+
+            background: #111;
+        }
+
+        .produto-imagem img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .produto-info {
+            flex: 1;
+        }
+
+        .produto-categoria {
+            color: #d0a328;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+        }
+
+        .produto-info h3 {
+            font-size: 21px;
+
+            margin: 7px 0;
+        }
+
+        .produto-preco {
+            color: #d3a52c;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           QUANTIDADE
+        ========================= */
+
+        .quantidade-area {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .quantidade-area label {
+            color: #777;
+
+            font-size: 12px;
+
+            display: block;
+
+            text-align: center;
+
+            margin-bottom: 5px;
+        }
+
+        .controle {
+            display: flex;
+            align-items: center;
+
+            height: 45px;
+
+            border: 1px solid #80651c;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+
+            background: #080808;
+        }
+
+        .controle button {
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            background: #171307;
+
+            color: #d3a52c;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .controle button:hover {
+            background: #6d5315;
+
+            color: white;
+        }
+
+        .numero {
+            width: 45px;
+
+            text-align: center;
+
+            font-size: 17px;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           RESUMO
+        ========================= */
+
+        .resumo {
+            max-width: 1000px;
+
+            margin: 35px auto 0;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0a0a0a,
+                    #191506
+                );
+
+            border: 1px solid rgba(205, 157, 35, 0.3);
+
+            border-radius: 16px;
+        }
+
+        .resumo-topo {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .resumo-topo h2 {
+            font-size: 25px;
+        }
+
+        .quantidade-total {
+            color: #888;
+
+            font-size: 14px;
+        }
+
+        .itens-resumo {
+            padding: 20px 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .item-resumo {
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #aaa;
+
+            font-size: 14px;
+        }
+
+        .item-resumo strong {
+            color: white;
+        }
+
+        .nenhum-item {
+            color: #666;
+
+            text-align: center;
+
+            padding: 10px 0;
+        }
+
+        .total-area {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .total-area span:first-child {
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        .total {
+            color: #d3a52c;
+
+            font-size: 32px;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           BOTÃO FINALIZAR
+        ========================= */
+
+        .finalizar {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #705515,
+                    #c09521
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .finalizar:hover {
+            filter: brightness(1.15);
+
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 35px 7%;
+
+            text-align: center;
+
+            background: #020202;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-wrap: wrap;
+
+                gap: 15px;
+            }
+
+            nav {
+                order: 3;
+
+                width: 100%;
+
+                justify-content: center;
+
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .produto {
+                flex-wrap: wrap;
+
+                padding: 15px;
+            }
+
+            .produto-imagem {
+                width: 90px;
+                height: 80px;
+            }
+
+            .produto-info {
+                min-width: calc(100% - 120px);
+            }
+
+            .quantidade-area {
+                width: 100%;
+
+                justify-content: flex-end;
+            }
+
+            .resumo {
+                padding: 22px;
+            }
+
+            .total {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .produto-imagem {
+                width: 75px;
+                height: 70px;
+            }
+
+            .produto-info h3 {
+                font-size: 17px;
+            }
+
+            .produto-preco {
+                font-size: 16px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .pedido {
+                padding: 60px 5%;
+            }
+
+            .resumo-topo {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 8px;
+            }
+
+            .total-area {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            SALGADINHO MANIA
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="vendas.html">
+                Produtos
+            </a>
+
+            <a href="sobre.html">
+                Sobre
+            </a>
+
+        </nav>
+
+        <div class="header-direita">
+
+            <a href="vendas.html" class="voltar">
+                Voltar
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <small>
+                Salgadinho Mania
+            </small>
+
+            <h1>
+                Monte seu <span>pedido.</span>
+            </h1>
+
+            <p>
+                Escolha a quantidade de cada produto
+                e confira o valor total antes de finalizar.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUTOS
+    ========================= -->
+
+    <section class="pedido">
+
+        <div class="titulo-secao">
+
+            <h2>
+                Escolha as quantidades
+            </h2>
+
+            <p>
+                Use os botões + e − para montar seu pedido.
+            </p>
+
+        </div>
+
+
+        <div class="lista-produtos">
+
+<!-- PRODUTO 3 -->
+
+            <article class="produto">
+
+                <div class="produto-imagem">
+
+                    <img
+                        src="https://i.ibb.co/Y7sJY8Nt/c5b6663f-c8c7-437b-b460-e5851eb0ad6b.png"
+                        alt="Combo Mania"
+                    >
+
+                </div>
+
+                <div class="produto-info">
+
+                    <span class="produto-categoria">
+                        Mais vendido
+                    </span>
+
+                    <h3>
+                        Combo Mania
+                    </h3>
+
+                    <div class="produto-preco">
+                        R$ 8,00
+                    </div>
+
+                </div>
+
+                <div class="quantidade-area">
+
+                    <div>
+
+                        <label>
+                            Quantidade
+                        </label>
+
+                        <div class="controle">
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(0, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span
+                                class="numero"
+                                id="quantidade-0"
+                            >
+                                0
+                            </span>
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(0, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+<!-- PRODUTO 4 -->
+
+            <article class="produto">
+
+                <div class="produto-imagem">
+
+                    <img
+                        src="https://i.ibb.co/tTn0PL67/65248f14-3e07-4786-94b7-f5b24f25db8d.png"
+                        alt="Mini salgadinho"
+                    >
+
+                </div>
+
+                <div class="produto-info">
+
+                    <span class="produto-categoria">
+                        Salgadinho
+                    </span>
+
+                    <h3>
+                        Mini salgadinho (UN)
+                    </h3>
+
+                    <div class="produto-preco">
+                        R$ 1,50
+                    </div>
+
+                </div>
+
+                <div class="quantidade-area">
+
+                    <div>
+
+                        <label>
+                            Quantidade
+                        </label>
+
+                        <div class="controle">
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(1, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span
+                                class="numero"
+                                id="quantidade-1"
+                            >
+                                0
+                            </span>
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(1, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+<!-- PRODUTO 6 -->
+
+            <article class="produto">
+
+                <div class="produto-imagem">
+
+                    <img
+                        src="https://i.ibb.co/GvXd1mYs/90c29b4f-21ed-486b-97aa-4e1a2f0ab7c9.png"
+                        alt="Kit Amigos"
+                    >
+
+                </div>
+
+                <div class="produto-info">
+
+                    <span class="produto-categoria">
+                        Especial
+                    </span>
+
+                    <h3>
+                        Kit Amigos
+                    </h3>
+
+                    <div class="produto-preco">
+                        R$ 24,99
+                    </div>
+
+                </div>
+
+                <div class="quantidade-area">
+
+                    <div>
+
+                        <label>
+                            Quantidade
+                        </label>
+
+                        <div class="controle">
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(2, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span
+                                class="numero"
+                                id="quantidade-2"
+                            >
+                                0
+                            </span>
+
+                            <button
+                                type="button"
+                                onclick="alterarQuantidade(2, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- =========================
+             RESUMO
+        ========================= -->
+
+        <div class="resumo">
+
+            <div class="resumo-topo">
+
+                <h2>
+                    Resumo do pedido
+                </h2>
+
+                <span
+                    class="quantidade-total"
+                    id="quantidadeTotal"
+                >
+                    0 itens
+                </span>
+
+            </div>
+
+
+            <div
+                class="itens-resumo"
+                id="itensResumo"
+            >
+
+                <div class="nenhum-item">
+                    Nenhum produto selecionado.
+                </div>
+
+            </div>
+
+
+            <div class="total-area">
+
+                <span>
+                    Total
+                </span>
+
+                <span
+                    class="total"
+                    id="total"
+                >
+                    R$ 0,00
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="finalizar"
+                onclick="finalizarPedido()"
+            >
+                Finalizar pedido
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SALGADINHO MANIA
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const produtos = [
+
+            {
+                nome: "Combo Mania",
+                preco: 9.00,
+                quantidade: 0
+            },
+
+            {
+                nome: "Mini salgadinho (UN)",
+                preco: 1.50,
+                quantidade: 0
+            },
+
+            {
+                nome: "Kit Amigos",
+                preco: 35.00,
+                quantidade: 0
+            }
+
+        ];
+
+
+        function alterarQuantidade(indice, valor) {
+
+            produtos[indice].quantidade += valor;
+
+
+            if (produtos[indice].quantidade < 0) {
+
+                produtos[indice].quantidade = 0;
+
+            }
+
+
+            document.getElementById(
+                "quantidade-" + indice
+            ).textContent =
+                produtos[indice].quantidade;
+
+
+            atualizarResumo();
+
+        }
+
+
+        function atualizarResumo() {
+
+            let total = 0;
+
+            let quantidadeTotal = 0;
+
+
+            const resumo =
+                document.getElementById("itensResumo");
+
+
+            resumo.innerHTML = "";
+
+
+            produtos.forEach(function(produto) {
+
+                if (produto.quantidade > 0) {
+
+                    const subtotal =
+                        produto.preco *
+                        produto.quantidade;
+
+
+                    total += subtotal;
+
+                    quantidadeTotal +=
+                        produto.quantidade;
+
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "item-resumo";
+
+
+                    item.innerHTML = `
+                        <span>
+                            ${produto.quantidade}x
+                            ${produto.nome}
+                        </span>
+
+                        <strong>
+                            ${formatarMoeda(subtotal)}
+                        </strong>
+                    `;
+
+
+                    resumo.appendChild(item);
+
+                }
+
+            });
+
+
+            if (quantidadeTotal === 0) {
+
+                resumo.innerHTML = `
+                    <div class="nenhum-item">
+                        Nenhum produto selecionado.
+                    </div>
+                `;
+
+            }
+
+
+            document.getElementById("total").textContent =
+                formatarMoeda(total);
+
+
+            document.getElementById("quantidadeTotal").textContent =
+                quantidadeTotal +
+                (quantidadeTotal === 1 ? " item" : " itens");
+
+        }
+
+
+        function formatarMoeda(valor) {
+
+            return valor.toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+
+        }
+
+
+        async function finalizarPedido() {
+
+            let possuiProduto = false;
+
+            produtos.forEach(function(produto) {
+                if (produto.quantidade > 0) {
+                    possuiProduto = true;
+                }
+            });
+
+            if (!possuiProduto) {
+                alert("Escolha pelo menos um produto para continuar.");
+                return;
+            }
+
+            const nome = localStorage.getItem("nomeUsuario");
+
+            if (!nome) {
+                alert("Digite seu nome antes de fazer o pedido.");
+                window.location.href = "cadastro.html";
+                return;
+            }
+
+            const pedidos = produtos
+                .filter(function(produto) {
+                    return produto.quantidade > 0;
+                })
+                .map(function(produto) {
+                    return {
+                        nome: nome,
+                        produto: produto.nome,
+                        quantidade: produto.quantidade,
+                        valor: produto.preco * produto.quantidade
+                    };
+                });
+
+            try {
+
+                const resposta = await fetch("salvar_pedido.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        pedidos: pedidos
+                    })
+                });
+
+                const resultado = await resposta.json();
+
+                if (!resultado.sucesso) {
+                    alert(resultado.mensagem || "Não foi possível salvar o pedido.");
+                    return;
+                }
+
+                localStorage.setItem(
+                    "pedidoSalgadinhoMania",
+                    JSON.stringify(produtos)
+                );
+
+                let total = 0;
+
+                produtos.forEach(function(produto) {
+                    total += produto.preco * produto.quantidade;
+                });
+
+                localStorage.setItem(
+                    "totalPedido",
+                    total.toFixed(2)
+                );
+
+                window.location.href = "sucesso.html";
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível conectar ao servidor. Verifique se o XAMPP está ligado."
+                );
+
+            }
+        }
+
+
+        /*
+         * Inicia o resumo
+         */
+
+        atualizarResumo();
+
+    </script>
+
+</body>
+</html>
